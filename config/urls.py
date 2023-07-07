@@ -9,8 +9,8 @@ from django.views.generic import TemplateView
 urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
-    # User management
     path("accounts/", include("allauth.urls")),
+    path("accounts/", include("accounts.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
