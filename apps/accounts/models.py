@@ -1,9 +1,11 @@
+import secrets
 from uuid import uuid4
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
+from apps.accounts.tasks import send_registration_employee_email
 
 """
     TODO: 
@@ -21,10 +23,12 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-    def employee_create(self, username, password, **kwargs):
-        employee = Employee(username=username, **kwargs)
+    def employee_create(self, username, email, **kwargs):
+        password = secrets.token_hex(16)
+        employee = Employee(username=username, email=email, **kwargs)
         employee.set_password(password)
         employee.save()
+        send_registration_employee_email(email, password)
         return employee
 
     @property
