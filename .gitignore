@@ -279,3 +279,6 @@ mono_integration/media/
 .env
 .envs/*
 !.envs/.local/
+.vscode
+Pipfile
+Pipfile.lock
