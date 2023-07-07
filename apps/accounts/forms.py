@@ -29,5 +29,4 @@ class CustomUserForm(forms.ModelForm):
             "first_name",
             "middle_name",
             "last_name",
-            "phone_number",
         ]
