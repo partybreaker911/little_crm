@@ -60,6 +60,20 @@ class Employee(AbstractUser):
         verbose_name_plural = _("Employees")
 
 
+class UserContact(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, unique=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    address = models.CharField(_("Address"), max_length=150, blank=True, null=True)
+    telephone = models.CharField(_("Telephone Number"), max_length=13, blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("User Contacts")
+        verbose_name_plural = _("User Contacts")
+
+    def __str__(self):
+        return f"{self.telephone}"
+
+
 class BusinessProfile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, unique=True, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="business_user")
